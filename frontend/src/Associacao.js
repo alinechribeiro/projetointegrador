@@ -7,6 +7,7 @@ function Associacao() {
   const [fornecedores, setFornecedores] = useState([]);
   const [produtoId, setProdutoId] = useState('');
   const [fornecedorId, setFornecedorId] = useState('');
+  const [preco, setPreco] = useState('');
   const [associados, setAssociados] = useState([]);
   const [consultaFornecedorId, setConsultaFornecedorId] = useState('');
   const [produtosDoFornecedor, setProdutosDoFornecedor] = useState([]);
@@ -20,7 +21,7 @@ function Associacao() {
 
   useEffect(() => {
     if (!produtoId) return setAssociados([]);
-    api(`/produtos/${produtoId}/fornecedores`).then(({ ok, dados }) => ok && setAssociados(dados));
+    api(`/produtos/${produtoId}/comparacao-precos`).then(({ ok, dados }) => ok && setAssociados(dados.fornecedores));
   }, [produtoId, versao]);
 
   useEffect(() => {
@@ -42,12 +43,27 @@ function Associacao() {
     if (!fornecedorId) return setMensagem({ tipo: 'erro', texto: 'Selecione um fornecedor.' });
     const { ok, dados } = await api(`/produtos/${produtoId}/fornecedores`, 'POST', {
       fornecedor_id: Number(fornecedorId),
+      preco: preco === '' ? null : Number(preco),
     });
-    setMensagem({ tipo: ok ? 'sucesso' : 'erro', texto: dados.mensagem });
+    setMensagem({ tipo: ok ? 'sucesso' : 'erro', texto: dados.mensagem || dados.erros?.preco });
     if (ok) {
       setFornecedorId('');
+      setPreco('');
       setVersao(versao + 1);
     }
+  }
+
+  async function alterarPreco(fornecedor) {
+    const novoPreco = window.prompt(
+      `Novo preço de "${fornecedor.nome_empresa}" para este produto (R$):`,
+      fornecedor.preco_fornecedor ?? ''
+    );
+    if (novoPreco === null) return;
+    const { ok, dados } = await api(`/produtos/${produtoId}/fornecedores/${fornecedor.id}`, 'PUT', {
+      preco: novoPreco.replace(',', '.'),
+    });
+    setMensagem({ tipo: ok ? 'sucesso' : 'erro', texto: dados.mensagem || dados.erros?.preco });
+    if (ok) setVersao(versao + 1);
   }
 
   async function desassociar(fornecedor) {
@@ -98,31 +114,54 @@ function Associacao() {
                 </option>
               ))}
             </select>
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              value={preco}
+              onChange={(e) => setPreco(e.target.value)}
+              placeholder="Preço do fornecedor (R$)"
+            />
             <button onClick={associar}>Associar Fornecedor</button>
           </div>
 
-          <h3>Fornecedores Associados</h3>
+          <h3>Fornecedores Associados (do menor para o maior preço)</h3>
           <table>
             <thead>
               <tr>
                 <th>Nome do Fornecedor</th>
                 <th>CNPJ</th>
+                <th>Contato</th>
+                <th>Preço</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {associados.map((f) => (
-                <tr key={f.id}>
-                  <td>{f.nome_empresa}</td>
-                  <td>{f.cnpj}</td>
-                  <td>
-                    <button onClick={() => desassociar(f)}>Desassociar</button>
-                  </td>
-                </tr>
-              ))}
+              {associados.map((f, i) => {
+                const maisBarato = i === 0 && f.preco_fornecedor != null;
+                return (
+                  <tr key={f.id} className={maisBarato ? 'mais-barato' : ''}>
+                    <td>
+                      {f.nome_empresa}
+                      {maisBarato && <span className="selo">Menor preço</span>}
+                    </td>
+                    <td>{f.cnpj}</td>
+                    <td>
+                      <a href={`tel:${f.telefone}`}>{f.telefone}</a>
+                      <br />
+                      <a href={`mailto:${f.email}`}>{f.email}</a>
+                    </td>
+                    <td>{f.preco_fornecedor != null ? `R$ ${f.preco_fornecedor.toFixed(2)}` : 'Sem preço'}</td>
+                    <td>
+                      <button onClick={() => alterarPreco(f)}>Alterar preço</button>
+                      <button onClick={() => desassociar(f)}>Desassociar</button>
+                    </td>
+                  </tr>
+                );
+              })}
               {associados.length === 0 && (
                 <tr>
-                  <td colSpan="3">Nenhum fornecedor associado.</td>
+                  <td colSpan="5">Nenhum fornecedor associado.</td>
                 </tr>
               )}
             </tbody>
@@ -144,7 +183,10 @@ function Associacao() {
       {consultaFornecedorId && (
         <ul>
           {produtosDoFornecedor.map((p) => (
-            <li key={p.id}>{p.nome}</li>
+            <li key={p.id}>
+              {p.nome}
+              {p.preco_fornecedor != null && ` – R$ ${p.preco_fornecedor.toFixed(2)}`}
+            </li>
           ))}
           {produtosDoFornecedor.length === 0 && <li>Nenhum produto associado a este fornecedor.</li>}
         </ul>

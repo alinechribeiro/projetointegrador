@@ -95,6 +95,27 @@ td {
   border-bottom: 1px solid #eee;
 }
 
+tr.mais-barato {
+  background: #e8f5e9;
+  font-weight: bold;
+}
+
+.selo {
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: #2e7d32;
+  color: white;
+  font-size: 0.75rem;
+}
+
+@media print {
+  nav,
+  .nao-imprimir {
+    display: none;
+  }
+}
+
 .miniatura {
   max-width: 120px;
   border-radius: 4px;

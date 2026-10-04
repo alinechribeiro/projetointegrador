@@ -31,8 +31,15 @@ db.exec(`
   CREATE TABLE IF NOT EXISTS produto_fornecedor (
     produto_id INTEGER NOT NULL REFERENCES produtos(id) ON DELETE CASCADE,
     fornecedor_id INTEGER NOT NULL REFERENCES fornecedores(id) ON DELETE CASCADE,
+    preco REAL,
     PRIMARY KEY (produto_id, fornecedor_id)
   );
 `);
+
+// Bancos criados antes do preço por fornecedor ganham a coluna sem perder os dados.
+const colunas = db.prepare('PRAGMA table_info(produto_fornecedor)').all();
+if (!colunas.some((coluna) => coluna.name === 'preco')) {
+  db.exec('ALTER TABLE produto_fornecedor ADD COLUMN preco REAL');
+}
 
 module.exports = db;

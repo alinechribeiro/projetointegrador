@@ -118,7 +118,7 @@
       "name": "Associar fornecedor ao produto", "method": "POST",
       "url": "{{ _.base_url }}/produtos/{{ _.produto_id }}/fornecedores",
       "headers": [{ "name": "Content-Type", "value": "application/json" }],
-      "body": { "mimeType": "application/json", "text": "{\n  \"fornecedor_id\": {{ _.fornecedor_id }}\n}" }
+      "body": { "mimeType": "application/json", "text": "{\n  \"fornecedor_id\": {{ _.fornecedor_id }},\n  \"preco\": 25.50\n}" }
     },
     {
       "_id": "req_assoc_fornecedores_do_produto", "_type": "request", "parentId": "fld_associacoes", "metaSortKey": 2,
@@ -136,6 +136,27 @@
       "_id": "req_assoc_desassociar", "_type": "request", "parentId": "fld_associacoes", "metaSortKey": 4,
       "name": "Desassociar fornecedor do produto", "method": "DELETE",
       "url": "{{ _.base_url }}/produtos/{{ _.produto_id }}/fornecedores/{{ _.fornecedor_id }}",
+      "headers": [], "body": {}
+    },
+
+    { "_id": "fld_novos", "_type": "request_group", "parentId": "wrk_mr", "name": "Novos endpoints (Comparação e Relatórios)", "metaSortKey": 4 },
+    {
+      "_id": "req_novo_atualizar_preco", "_type": "request", "parentId": "fld_novos", "metaSortKey": 1,
+      "name": "Atualizar preço do fornecedor", "method": "PUT",
+      "url": "{{ _.base_url }}/produtos/{{ _.produto_id }}/fornecedores/{{ _.fornecedor_id }}",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": { "mimeType": "application/json", "text": "{\n  \"preco\": 23.90\n}" }
+    },
+    {
+      "_id": "req_novo_comparacao", "_type": "request", "parentId": "fld_novos", "metaSortKey": 2,
+      "name": "Comparação de preços do produto", "method": "GET",
+      "url": "{{ _.base_url }}/produtos/{{ _.produto_id }}/comparacao-precos",
+      "headers": [], "body": {}
+    },
+    {
+      "_id": "req_novo_relatorio_estoque", "_type": "request", "parentId": "fld_novos", "metaSortKey": 3,
+      "name": "Relatório de estoque e menor preço", "method": "GET",
+      "url": "{{ _.base_url }}/relatorios/estoque",
       "headers": [], "body": {}
     }
   ]

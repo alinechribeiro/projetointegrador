@@ -3,6 +3,7 @@ const express = require('express');
 const produtos = require('./src/controllers/produtoController');
 const fornecedores = require('./src/controllers/fornecedorController');
 const associacoes = require('./src/controllers/associacaoController');
+const relatorios = require('./src/controllers/relatorioController');
 
 const app = express();
 app.use(express.json());
@@ -30,6 +31,10 @@ app.post('/produtos/:produtoId/fornecedores', associacoes.associar);
 app.delete('/produtos/:produtoId/fornecedores/:fornecedorId', associacoes.desassociar);
 app.get('/produtos/:produtoId/fornecedores', associacoes.fornecedoresDoProduto);
 app.get('/fornecedores/:fornecedorId/produtos', associacoes.produtosDoFornecedor);
+
+app.put('/produtos/:produtoId/fornecedores/:fornecedorId', associacoes.atualizarPreco);
+app.get('/produtos/:produtoId/comparacao-precos', associacoes.comparacaoPrecos);
+app.get('/relatorios/estoque', relatorios.estoque);
 
 // Localmente a porta 3000 fica livre para o frontend React.
 const PORT = process.env.PORT || 3001;

@@ -29,7 +29,7 @@ npm install
 npm start
 ```
 
-As páginas de Produtos, Fornecedores e Associação abrem em http://localhost:3000.
+As páginas de Produtos, Fornecedores, Associação e Relatórios abrem em http://localhost:3000.
 
 
 ## Rotas do Projeto
@@ -40,7 +40,15 @@ As páginas de Produtos, Fornecedores e Associação abrem em http://localhost:3
 | GET / PUT / DELETE | `/produtos/:id` | Busca / atualiza / exclui um produto |
 | GET / POST | `/fornecedores` | Lista / cadastra fornecedores |
 | GET / PUT / DELETE | `/fornecedores/:id` | Busca / atualiza / exclui um fornecedor |
-| POST | `/produtos/:produtoId/fornecedores` | Associa um fornecedor (`{ "fornecedor_id": 1 }`) |
+| POST | `/produtos/:produtoId/fornecedores` | Associa um fornecedor (`{ "fornecedor_id": 1, "preco": 25.50 }`) |
 | DELETE | `/produtos/:produtoId/fornecedores/:fornecedorId` | Desassocia o fornecedor |
 | GET | `/produtos/:produtoId/fornecedores` | Fornecedores de um produto |
 | GET | `/fornecedores/:fornecedorId/produtos` | Produtos de um fornecedor |
+
+### Novos endpoints (necessidades levantadas com a M&R)
+
+| Método | Rota | Descrição |
+| --- | --- | --- |
+| PUT | `/produtos/:produtoId/fornecedores/:fornecedorId` | Atualiza o preço do fornecedor para o produto (`{ "preco": 23.90 }`) |
+| GET | `/produtos/:produtoId/comparacao-precos` | Fornecedores do produto do menor para o maior preço, com o mais barato em destaque |
+| GET | `/relatorios/estoque` | Estoque de cada produto, número de fornecedores, menor preço e fornecedor mais barato |

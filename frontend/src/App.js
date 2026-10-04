@@ -2,12 +2,14 @@ import { useState } from 'react';
 import Produtos from './Produtos';
 import Fornecedores from './Fornecedores';
 import Associacao from './Associacao';
+import Relatorios from './Relatorios';
 import './App.css';
 
 const PAGINAS = {
   produtos: { titulo: 'Produtos', componente: Produtos },
   fornecedores: { titulo: 'Fornecedores', componente: Fornecedores },
   associacao: { titulo: 'Associação Produto/Fornecedor', componente: Associacao },
+  relatorios: { titulo: 'Relatórios', componente: Relatorios },
 };
 
 function App() {
