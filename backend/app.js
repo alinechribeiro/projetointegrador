@@ -1,15 +1,17 @@
+const path = require('node:path');
 const express = require('express');
-const cors = require('cors');
 const produtos = require('./src/controllers/produtoController');
 const fornecedores = require('./src/controllers/fornecedorController');
 const associacoes = require('./src/controllers/associacaoController');
 
 const app = express();
-app.use(cors());
 app.use(express.json());
 
+// Em produção (Replit), o backend também entrega as páginas do React já compiladas.
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
+
 app.get('/', (req, res) => {
-  res.json({ mensagem: 'API Psiu Alimentos Ltda - controle de produtos e fornecedores' });
+  res.json({ mensagem: 'API M&R COMERCIO DE ALIMENTOS - controle de produtos e fornecedores' });
 });
 
 app.get('/produtos', produtos.listar);
@@ -29,8 +31,8 @@ app.delete('/produtos/:produtoId/fornecedores/:fornecedorId', associacoes.desass
 app.get('/produtos/:produtoId/fornecedores', associacoes.fornecedoresDoProduto);
 app.get('/fornecedores/:fornecedorId/produtos', associacoes.produtosDoFornecedor);
 
-// A porta 3000 fica livre para o frontend React (Etapa 3).
-const PORT = 3001;
+// Localmente a porta 3000 fica livre para o frontend React.
+const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando em http://localhost:${PORT}/`);

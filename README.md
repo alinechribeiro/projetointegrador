@@ -2,9 +2,9 @@ FACULDADE GRAN (https://faculdade.grancursosonline.com.br/)
 
 Projeto Disciplina Projeto Integrador
 
-# Psiu Alimentos Ltda - Controle de Produtos e Fornecedores
+# M&R COMERCIO DE ALIMENTOS - Controle de Produtos e Fornecedores
 
-Esse projeto visa criar um sistema de cadastro e controle de Produtos e de Fornecedores para a empresa Psiu Alimentos Ltda.
+Esse projeto visa criar um sistema de cadastro e controle de Produtos e de Fornecedores para a empresa MAM RIBEIRO COMERCIO DE ALIMENTOS - ME (M&R COMERCIO DE ALIMENTOS).
 O Backend foi criado em Node.js (Express) com banco de dados SQLite e fica na pasta `backend/`. O frontend foi criado com ReactJS para a Etapa 3 e fica na pasta `frontend/`.
 
 ## Como executar
@@ -19,7 +19,7 @@ npm start
 
 A API roda em http://localhost:3001 e cria o arquivo `backend/banco.sqlite`.
 
-Para testar no Insomnia, basta importarmos o arquivo `backend/insomnia/psiu-alimentos.json`.
+Para testar no Insomnia, basta importarmos o arquivo `backend/insomnia/mr-comercio-alimentos.json`.
 
 Frontend (em outro terminal):
 
@@ -30,6 +30,7 @@ npm start
 ```
 
 As páginas de Produtos, Fornecedores e Associação abrem em http://localhost:3000.
+
 
 ## Rotas do Projeto
 

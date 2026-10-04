@@ -17,7 +17,8 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Psiu Alimentos Ltda</h1>
+        <h1>M&R COMERCIO DE ALIMENTOS</h1>
+        <p>MAM RIBEIRO COMERCIO DE ALIMENTOS - ME</p>
         <nav>
           {Object.entries(PAGINAS).map(([chave, { titulo }]) => (
             <button key={chave} className={chave === pagina ? 'ativo' : ''} onClick={() => setPagina(chave)}>

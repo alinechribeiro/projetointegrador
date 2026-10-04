@@ -1,8 +1,6 @@
-const API_URL = 'http://localhost:3001';
-
 export async function api(caminho, metodo = 'GET', corpo) {
   try {
-    const resposta = await fetch(API_URL + caminho, {
+    const resposta = await fetch(caminho, {
       method: metodo,
       headers: corpo ? { 'Content-Type': 'application/json' } : undefined,
       body: corpo ? JSON.stringify(corpo) : undefined,

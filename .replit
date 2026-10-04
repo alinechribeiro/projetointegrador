@@ -1,0 +1,14 @@
+modules = ["nodejs-22"]
+run = "npm run build && npm start"
+
+[env]
+PORT = "3001"
+
+[[ports]]
+localPort = 3001
+externalPort = 80
+
+[deployment]
+build = ["npm", "run", "build"]
+run = ["npm", "start"]
+deploymentTarget = "autoscale"
