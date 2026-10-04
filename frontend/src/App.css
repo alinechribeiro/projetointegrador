@@ -1,0 +1,101 @@
+.App {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem 2rem 3rem;
+}
+
+header {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1.5rem;
+}
+
+nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+button {
+  padding: 0.4rem 0.9rem;
+  margin-right: 0.3rem;
+  border: 1px solid #2e7d32;
+  border-radius: 4px;
+  background: white;
+  color: #2e7d32;
+  cursor: pointer;
+}
+
+button:hover,
+button.ativo,
+button[type='submit'] {
+  background: #2e7d32;
+  color: white;
+}
+
+.campo {
+  max-width: 480px;
+  margin-bottom: 0.8rem;
+}
+
+.campo label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-weight: bold;
+}
+
+input,
+textarea,
+select {
+  padding: 0.4rem;
+  font: inherit;
+  font-weight: normal;
+}
+
+textarea {
+  min-height: 4rem;
+}
+
+.erro {
+  color: #c62828;
+  font-size: 0.9rem;
+}
+
+.mensagem {
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+}
+
+.mensagem.sucesso {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.mensagem.erro {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.acoes {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.miniatura {
+  max-width: 120px;
+  border-radius: 4px;
+}

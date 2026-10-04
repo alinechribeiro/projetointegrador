@@ -1,0 +1,142 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-10-04T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v13.3.0",
+  "resources": [
+    {
+      "_id": "wrk_psiu",
+      "_type": "workspace",
+      "parentId": null,
+      "name": "Psiu Alimentos - Backend",
+      "description": "Rotas de produtos, fornecedores e associação produto/fornecedor.",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_psiu_base",
+      "_type": "environment",
+      "parentId": "wrk_psiu",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:3001",
+        "produto_id": 1,
+        "fornecedor_id": 1
+      }
+    },
+
+    { "_id": "fld_produtos", "_type": "request_group", "parentId": "wrk_psiu", "name": "Produtos", "metaSortKey": 1 },
+    {
+      "_id": "req_produtos_listar", "_type": "request", "parentId": "fld_produtos", "metaSortKey": 1,
+      "name": "Listar produtos", "method": "GET", "url": "{{ _.base_url }}/produtos",
+      "headers": [], "body": {}
+    },
+    {
+      "_id": "req_produtos_buscar", "_type": "request", "parentId": "fld_produtos", "metaSortKey": 2,
+      "name": "Buscar produto por id", "method": "GET", "url": "{{ _.base_url }}/produtos/{{ _.produto_id }}",
+      "headers": [], "body": {}
+    },
+    {
+      "_id": "req_produtos_criar", "_type": "request", "parentId": "fld_produtos", "metaSortKey": 3,
+      "name": "Cadastrar produto", "method": "POST", "url": "{{ _.base_url }}/produtos",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Biscoito Recheado Chocolate\",\n  \"codigo_barras\": \"7891000100103\",\n  \"descricao\": \"Pacote de biscoito recheado sabor chocolate 140g\",\n  \"preco\": 4.99,\n  \"quantidade_estoque\": 120,\n  \"categoria\": \"Alimentos\",\n  \"data_validade\": \"2027-03-31\",\n  \"imagem_url\": null\n}"
+      }
+    },
+    {
+      "_id": "req_produtos_criar_invalido", "_type": "request", "parentId": "fld_produtos", "metaSortKey": 4,
+      "name": "Cadastrar produto (dados inválidos)", "method": "POST", "url": "{{ _.base_url }}/produtos",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"\",\n  \"codigo_barras\": \"abc\",\n  \"preco\": -1\n}"
+      }
+    },
+    {
+      "_id": "req_produtos_atualizar", "_type": "request", "parentId": "fld_produtos", "metaSortKey": 5,
+      "name": "Atualizar produto", "method": "PUT", "url": "{{ _.base_url }}/produtos/{{ _.produto_id }}",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome\": \"Biscoito Recheado Chocolate\",\n  \"codigo_barras\": \"7891000100103\",\n  \"descricao\": \"Pacote de biscoito recheado sabor chocolate 140g\",\n  \"preco\": 5.49,\n  \"quantidade_estoque\": 100,\n  \"categoria\": \"Alimentos\",\n  \"data_validade\": \"2027-03-31\"\n}"
+      }
+    },
+    {
+      "_id": "req_produtos_excluir", "_type": "request", "parentId": "fld_produtos", "metaSortKey": 6,
+      "name": "Excluir produto", "method": "DELETE", "url": "{{ _.base_url }}/produtos/{{ _.produto_id }}",
+      "headers": [], "body": {}
+    },
+
+    { "_id": "fld_fornecedores", "_type": "request_group", "parentId": "wrk_psiu", "name": "Fornecedores", "metaSortKey": 2 },
+    {
+      "_id": "req_fornecedores_listar", "_type": "request", "parentId": "fld_fornecedores", "metaSortKey": 1,
+      "name": "Listar fornecedores", "method": "GET", "url": "{{ _.base_url }}/fornecedores",
+      "headers": [], "body": {}
+    },
+    {
+      "_id": "req_fornecedores_buscar", "_type": "request", "parentId": "fld_fornecedores", "metaSortKey": 2,
+      "name": "Buscar fornecedor por id", "method": "GET", "url": "{{ _.base_url }}/fornecedores/{{ _.fornecedor_id }}",
+      "headers": [], "body": {}
+    },
+    {
+      "_id": "req_fornecedores_criar", "_type": "request", "parentId": "fld_fornecedores", "metaSortKey": 3,
+      "name": "Cadastrar fornecedor", "method": "POST", "url": "{{ _.base_url }}/fornecedores",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome_empresa\": \"Distribuidora Bom Sabor Ltda\",\n  \"cnpj\": \"11.222.333/0001-81\",\n  \"endereco\": \"Rua das Flores, 100 - Centro, São Paulo/SP\",\n  \"telefone\": \"(11) 3333-4444\",\n  \"email\": \"contato@bomsabor.com.br\",\n  \"contato_principal\": \"Maria Souza\"\n}"
+      }
+    },
+    {
+      "_id": "req_fornecedores_criar_invalido", "_type": "request", "parentId": "fld_fornecedores", "metaSortKey": 4,
+      "name": "Cadastrar fornecedor (dados inválidos)", "method": "POST", "url": "{{ _.base_url }}/fornecedores",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome_empresa\": \"\",\n  \"cnpj\": \"11.222.333/0001-00\",\n  \"telefone\": \"123\",\n  \"email\": \"sem-arroba\"\n}"
+      }
+    },
+    {
+      "_id": "req_fornecedores_atualizar", "_type": "request", "parentId": "fld_fornecedores", "metaSortKey": 5,
+      "name": "Atualizar fornecedor", "method": "PUT", "url": "{{ _.base_url }}/fornecedores/{{ _.fornecedor_id }}",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nome_empresa\": \"Distribuidora Bom Sabor Ltda\",\n  \"cnpj\": \"11.222.333/0001-81\",\n  \"endereco\": \"Av. Paulista, 1000 - Bela Vista, São Paulo/SP\",\n  \"telefone\": \"(11) 98888-7777\",\n  \"email\": \"compras@bomsabor.com.br\",\n  \"contato_principal\": \"João Lima\"\n}"
+      }
+    },
+    {
+      "_id": "req_fornecedores_excluir", "_type": "request", "parentId": "fld_fornecedores", "metaSortKey": 6,
+      "name": "Excluir fornecedor", "method": "DELETE", "url": "{{ _.base_url }}/fornecedores/{{ _.fornecedor_id }}",
+      "headers": [], "body": {}
+    },
+
+    { "_id": "fld_associacoes", "_type": "request_group", "parentId": "wrk_psiu", "name": "Associação Produto/Fornecedor", "metaSortKey": 3 },
+    {
+      "_id": "req_assoc_associar", "_type": "request", "parentId": "fld_associacoes", "metaSortKey": 1,
+      "name": "Associar fornecedor ao produto", "method": "POST",
+      "url": "{{ _.base_url }}/produtos/{{ _.produto_id }}/fornecedores",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": { "mimeType": "application/json", "text": "{\n  \"fornecedor_id\": {{ _.fornecedor_id }}\n}" }
+    },
+    {
+      "_id": "req_assoc_fornecedores_do_produto", "_type": "request", "parentId": "fld_associacoes", "metaSortKey": 2,
+      "name": "Fornecedores de um produto", "method": "GET",
+      "url": "{{ _.base_url }}/produtos/{{ _.produto_id }}/fornecedores",
+      "headers": [], "body": {}
+    },
+    {
+      "_id": "req_assoc_produtos_do_fornecedor", "_type": "request", "parentId": "fld_associacoes", "metaSortKey": 3,
+      "name": "Produtos de um fornecedor", "method": "GET",
+      "url": "{{ _.base_url }}/fornecedores/{{ _.fornecedor_id }}/produtos",
+      "headers": [], "body": {}
+    },
+    {
+      "_id": "req_assoc_desassociar", "_type": "request", "parentId": "fld_associacoes", "metaSortKey": 4,
+      "name": "Desassociar fornecedor do produto", "method": "DELETE",
+      "url": "{{ _.base_url }}/produtos/{{ _.produto_id }}/fornecedores/{{ _.fornecedor_id }}",
+      "headers": [], "body": {}
+    }
+  ]
+}

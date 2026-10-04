@@ -1,0 +1,7 @@
+node_modules/
+*.sqlite
+
+# Instaladores e material do curso (a apostila é licenciada e não pode ser redistribuída)
+*.dmg
+*.pkg
+*.pdf
