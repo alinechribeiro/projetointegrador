@@ -1,0 +1,14 @@
+{
+  "name": "2026-5o-projetointegrador",
+  "version": "1.0.0",
+  "description": "FACULDADE GRAN (https://faculdade.grancursosonline.com.br/)",
+  "license": "ISC",
+  "author": "Aline Ribeiro",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js",
+    "test": "node --test"
+  }
+}
